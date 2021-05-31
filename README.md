@@ -1,10 +1,14 @@
 # JSONファイルからHTMLファイルを生成してみる[Metalsmith]を使ったサンプル
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/79edf6c6-075e-4cae-a21d-f37a85c7d6ef/deploy-status)](https://app.netlify.com/sites/eager-knuth-07d410/deploys)
+
 [Metalsmith]: https://metalsmith.io
 [Handlebars]: https://handlebarsjs.com
 [Node.js]: https://nodejs.org/ja/
 [npm]: https://www.npmjs.com
 [Netlify]: https://netlify.app
+
+[実際のデプロイ結果](https://eager-knuth-07d410.netlify.app/)
 
 ## パソコン内での使い方
 
@@ -89,16 +93,16 @@
 
     各ページのデータを当てはめるテンプレート用ファイル。
     `metalsmith-layouts`が読み取り、各JSONファイルに当てはめてくれる。
-    変更する場合は、[`index.js`](./index.js)内の設定を変更する。
+    変更する場合は、[`index.js`内の設定](./index.js#L26-L30)を変更する。
     テンプレートの形式は[Handlebars]。
 
-* [`character/data/`](./character/data/)
+* [`src/`](./src/)
 
-    各ページのデータを定義するJSONファイルを入れておくディレクトリ。
+    各ページのHTMLファイルや、データを定義するJSONファイルを入れておくディレクトリ。
     [Metalsmith]が自動で読み取り、処理してくれる。
-    変更する場合は、[`index.js`](./index.js)内の設定を変更する。
+    変更する場合は、[`index.js`内の設定](./index.js#L9-L10)を変更する。
 
-* [`character/intro/`](./character/intro/)
+* [`build/`](./build/)
 
     [Metalsmith]が生成したHTMLファイルが入っているディレクトリ。
-    変更する場合は、[`index.js`](./index.js)内の設定を変更する。
+    変更する場合は、[`index.js`内の設定](./index.js#L12-L13)を変更する。

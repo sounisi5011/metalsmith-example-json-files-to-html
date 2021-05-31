@@ -7,10 +7,10 @@ const metalsmithLayouts = require('metalsmith-layouts');
 // Metalsmithを開始する
 Metalsmith(__dirname)
   // 元になるファイルを読み取るディレクトリ（フォルダ）のパスを設定する
-  .source('character/data')
+  .source('src')
 
   // 生成したファイルを出力するディレクトリのパスを設定する
-  .destination('character/intro')
+  .destination('build')
 
   // 処理前に、出力先のディレクトリを空にする
   .clean(true)
@@ -30,8 +30,9 @@ Metalsmith(__dirname)
     directory: 'templates',
 
     // 処理するファイルを指定するGlobパターン
-    // 今回は「全てのディレクトリの中の.jsonファイル」を対象とする
-    pattern: '**/*.json'
+    // 今回は「characterディレクトリの中の.jsonファイル」を対象とする
+    // 対象外のファイルは変換されずそのままになる
+    pattern: 'character/**/*.json'
   }))
 
   // 変換したJSONファイルのファイル名を`.html`に変更する
