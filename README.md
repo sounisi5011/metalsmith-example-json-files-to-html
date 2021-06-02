@@ -64,6 +64,21 @@
 
         Metalsmith用プラグインの1つ。指定されたファイルを、テンプレートファイルを元に変換してくれる。
 
+        `metalsmith-in-place`とは違い、このプラグインは「複数のファイルを1つのテンプレートファイルに当てはめて変換」するためのもの。
+
+    * [`metalsmith-in-place`](https://www.npmjs.com/package/metalsmith-layouts)
+
+        Metalsmith用プラグインの1つ。指定されたテンプレートファイルを、HTMLに変換してくれる。
+        このサンプルでは、`metalsmith-collections`で取得したファイル一覧を元にリンク一覧を生成するために用いる。
+
+        `metalsmith-layouts`とは違い、このプラグインは「1つのテンプレートを1つのHTMLに変換」するためのもの。
+
+    * [`metalsmith-collections`](https://www.npmjs.com/package/metalsmith-collections)
+
+        Metalsmith用プラグインの1つ。
+        指定されたGlobパターンに合致する各ファイルのデータを、配列の形式で`collections`キー内に格納してくれる。
+        サイト内のリンク集を作る場合などに便利。
+
     * [`jstransformer-handlebars`](https://www.npmjs.com/package/jstransformer-handlebars)
 
         `metalsmith-layouts`に[Handlebars]テンプレートを処理させるためのもの。

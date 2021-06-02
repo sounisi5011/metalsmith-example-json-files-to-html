@@ -1,6 +1,8 @@
 // Metalsmithを読み込む
 const Metalsmith  = require('metalsmith');
 // Metalsmithに必要なプラグインを読み込む
+const metalsmithCollections = require('metalsmith-collections');
+const metalsmithInPlace     = require('metalsmith-in-place');
 const metalsmithJson    = require('metalsmith-json');
 const metalsmithLayouts = require('metalsmith-layouts');
 
@@ -58,6 +60,46 @@ Metalsmith(__dirname)
     // Metalsmithの都合により、全ての処理が完了した後にこれを実行する必要がある
     done();
   })
+
+  // metalsmith-collectionsを使用して、キャラクター一覧のデータを取得する。
+  // 合致する各ファイルの情報が、`collections.キー名`に配列として格納される。
+  // 取得したデータは、後続のテンプレート変換処理で使用可能になる。
+  // また、各ファイルのデータに、ファイル自身の名前が入った`path`キーも追加してくれる。
+  .use(metalsmithCollections({
+    // 「character/intro」ディレクトリ内の全てのHTMLに対応するデータを取得し、
+    // `collections.characters`に格納する。
+    // これらのファイルはもともとJSONだが、この時点ではすでに変換済みのため取得できる。
+    characters: {
+      pattern: 'character/intro/**/*.html',
+      // JSONに定義された`sortOrder`の数値を元に、キャラ名を並べ替える
+      // 数値が小さいほど前になる
+      sortBy: (a, b) => a.data.sortOrder - b.data.sortOrder,
+    },
+  }))
+
+  // metalsmith-in-placeを使用して、srcディレクトリ内のhandlebarsファイルをHTMLに変換する。
+  // 「キャラクターへのリンク集」などを自動生成する場合は、テンプレートに直接データを渡して1つのHTMLに変換する機能が別で必要になるため。
+  .use(metalsmithInPlace({
+    pattern: '**/*.handlebars',
+    engineOptions: {
+      // Handlebarsのためのhelperを登録する
+      // helperの詳細については以下のドキュメントを参照：
+      //   https://handlebarsjs.com/guide/expressions.html#helpers
+      helpers: {
+        // ファイルパスをNetlify用のURLに変更するもの
+        // 使い方：
+        //    {{ toNetlifyURL path }}
+        //    {{ toNetlifyURL 'path/to/filename.html' }}
+        toNetlifyURL: path => (
+          path
+            // Windowsのパスはバックスラッシュ区切りなので、URLに合わせてスラッシュに置換する
+            .replace(/\\/g, '/')
+            // パスの後ろの「.html」および「index.html」を消し、スラッシュ1文字に置換する
+            .replace(/(\/?index\.html|\.html)$/, '/')
+        ),
+      },
+    },
+  }))
 
   // 変換を開始する
   .build(error => {
