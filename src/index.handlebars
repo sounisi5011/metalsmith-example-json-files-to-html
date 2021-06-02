@@ -10,9 +10,12 @@
   {{#each collections.characters}}
   <li>
     {{! eachの中では、格納されているデータを直接取得できる }}
-    {{! 「path」には、ファイルのパスが入っている }}
+    {{! 「path」には、ファイルのパスが入っている。
+        そのままでは扱いにくいため、「toNetlifyURL」helperでNetlify用のURLに変更する。
+        「toNetlifyURL」helperの登録処理は「index.js」内にある }}
     {{! 「data.*」には、JSONのデータが入っている }}
-    <a href="/{{ path }}">{{ data.title }}</a>
+    <a href="/{{ toNetlifyURL path }}">{{ data.title }}</a>
+    <!-- 元の「path」：{{ path }} -->
   </li>
   {{/each}}
 </ul>

@@ -80,6 +80,24 @@ Metalsmith(__dirname)
   // 「キャラクターへのリンク集」などを自動生成する場合は、テンプレートに直接データを渡して1つのHTMLに変換する機能が別で必要になるため。
   .use(metalsmithInPlace({
     pattern: '**/*.handlebars',
+    engineOptions: {
+      // Handlebarsのためのhelperを登録する
+      // helperの詳細については以下のドキュメントを参照：
+      //   https://handlebarsjs.com/guide/expressions.html#helpers
+      helpers: {
+        // ファイルパスをNetlify用のURLに変更するもの
+        // 使い方：
+        //    {{ toNetlifyURL path }}
+        //    {{ toNetlifyURL 'path/to/filename.html' }}
+        toNetlifyURL: path => (
+          path
+            // Windowsのパスはバックスラッシュ区切りなので、URLに合わせてスラッシュに置換する
+            .replace(/\\/g, '/')
+            // 後ろの「.html」および「index.html」を消し、スラッシュに置換する
+            .replace(/(?:\/?index\.html)?\.html$/, '/')
+        ),
+      },
+    },
   }))
 
   // 変換を開始する
