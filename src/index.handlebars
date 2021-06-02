@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<title>キャラ一覧</title>
+<body>
+<h1>キャラ一覧</h1>
+<ul>
+  {{!
+    metalsmith-collectionsで取得したキャラクター一覧データをループ処理する
+    詳細：https://handlebarsjs.com/guide/builtin-helpers.html#each
+  }}
+  {{#each collections.characters}}
+  <li>
+    {{! 「path」には、ファイルのパスが入っている }}
+    {{! 「data.*」には、JSONのデータが入っている }}
+    <a href="{{ path }}">{{ data.title }}</a>
+  </li>
+  {{/each}}
+</ul>
