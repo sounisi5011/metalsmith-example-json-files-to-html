@@ -95,7 +95,7 @@ Metalsmith(__dirname)
             // Windowsのパスはバックスラッシュ区切りなので、URLに合わせてスラッシュに置換する
             .replace(/\\/g, '/')
             // 後ろの「.html」および「index.html」を消し、スラッシュに置換する
-            .replace(/(?:\/?index\.html)?\.html$/, '/')
+            .replace(/(?:\/?index)?\.html$/, '/')
         ),
       },
     },
