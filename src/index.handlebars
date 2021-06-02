@@ -10,7 +10,7 @@
   {{#each collections.characters}}
   <li>
     {{! eachの中では、格納されているデータを直接取得できる }}
-    {{! 「path」には、ファイルのパスが入っている。
+    {{! 「path」には、ファイルのパスが入っている。これは、metalsmith-collectionsが自動で追加したもの。
         そのままでは扱いにくいため、「toNetlifyURL」helperでNetlify用のURLに変更する。
         「toNetlifyURL」helperの登録処理は「index.js」内にある }}
     {{! 「data.*」には、JSONのデータが入っている }}

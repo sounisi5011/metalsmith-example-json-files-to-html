@@ -61,9 +61,10 @@ Metalsmith(__dirname)
     done();
   })
 
-  // キャラクター一覧のデータを取得する。
+  // metalsmith-collectionsを使用して、キャラクター一覧のデータを取得する。
   // 合致する各ファイルの情報が、`collections.キー名`に配列として格納される。
   // 取得したデータは、後続のテンプレート変換処理で使用可能になる。
+  // また、各ファイルのデータに、ファイル自身の名前が入った`path`キーも追加してくれる。
   .use(metalsmithCollections({
     // 「character/intro」ディレクトリ内の全てのHTMLに対応するデータを取得し、
     // `collections.characters`に格納する。
