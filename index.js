@@ -68,7 +68,12 @@ Metalsmith(__dirname)
     // 「character/intro」ディレクトリ内の全てのHTMLに対応するデータを取得し、
     // `collections.characters`に格納する。
     // これらのファイルはもともとJSONだが、この時点ではすでに変換済みのため取得できる。
-    characters: 'character/intro/**/*.html',
+    characters: {
+      pattern: 'character/intro/**/*.html',
+      // JSONに定義された`sortOrder`の数値を元に、キャラ名を並べ替える
+      // 数値が小さいほど前になる
+      sortBy: (a, b) => a.data.sortOrder - b.data.sortOrder,
+    },
   }))
 
   // metalsmith-in-placeを使用して、srcディレクトリ内のhandlebarsファイルをHTMLに変換する。
