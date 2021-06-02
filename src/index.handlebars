@@ -9,6 +9,7 @@
   }}
   {{#each collections.characters}}
   <li>
+    {{! eachの中では、格納されているデータを直接取得できる }}
     {{! 「path」には、ファイルのパスが入っている }}
     {{! 「data.*」には、JSONのデータが入っている }}
     <a href="/{{ path }}">{{ data.title }}</a>
